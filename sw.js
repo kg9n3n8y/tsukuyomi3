@@ -1,5 +1,5 @@
 // Cache name
-const CACHE_NAME = 'tsukuyomi2-caches';
+const CACHE_NAME = 'tsukuyomi3-caches';
 // Cache targets
 const urlsToCache = [
   './',
