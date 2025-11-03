@@ -452,7 +452,7 @@ function openSubModal(modal) {
   if (modal === digitSelector && digitRandomAddCountInput) {
     digitRandomAddCountInput.value = '35';
   } else if (modal === initialSelector && initialRandomAddCountInput) {
-    initialRandomAddCountInput.value = '35';
+    initialRandomAddCountInput.value = '0';
   }
   showModal(modal);
 }
@@ -473,7 +473,7 @@ function closeSubModal(modal, resetButtons = false) {
       initialSelectedValues.clear();
       resetSelectionButtons(initialButtonsContainer);
       if (initialRandomAddCountInput) {
-        initialRandomAddCountInput.value = '35';
+        initialRandomAddCountInput.value = '0';
       }
     }
   }
