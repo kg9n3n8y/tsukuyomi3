@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta property="og:title" content="【読み札アプリ】月読（ver.2）">
+    <meta property="og:description" content="競技かるたの読み札を表示（改良版）">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kg9n3n8y.github.io/tsukuyomi2/">
+    <meta property="og:image" content="https://kg9n3n8y.github.io/tsukuyomi2/thumbnail.png">
+    <meta property="og:site_name" content="【読み札アプリ】月読（ver.2）">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="【読み札アプリ】月読（ver.2）">
+    <meta name="twitter:description" content="競技かるたの読み札を表示（改良版）">
+    <meta name=”twitter:image” content=”https://kg9n3n8y.github.io/tsukuyomi2/thumbnail.png” />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>月読(読み札)</title>
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="shortcut icon" type="image/png" href="https://kg9n3n8y.github.io/tsukuyomi2/icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kg9n3n8y.github.io/tsukuyomi2/icon.png">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./fudalist.js"></script>
+  </head>
+
+  <body>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(registration => {
+          console.log('ServiceWorker registration successful.');
+        }).catch(err => {
+          console.log('ServiceWorker registration failed.');
+        });
+      }
+    </script>
+    <h1>読札アプリ <ruby><rb>月</rb><rp>（</rp><rt>つく</rt><rp>）</rp><rb>読</rb><rp>（</rp><rt>よみ</rt><rp>）</rp></ruby> ver.2</h1>
+
+    <p>
+      <input type="button" onclick="reloadPage()" value="  読み札をシャッフル  ">
+    </p>
+
+    <div id="insert_table">
+      <table>
+          <tr>
+            <td id="shimonoku"></td>
+          </tr>
+          <tr>
+            <td id="kaminoku"></td>
+          </tr>
+      </table>
+    </div>
+
+    <div class="float-buttons">
+      <button id="middle-button" class="float-button">
+        <span class="button-text"><span class="yoin">余韻</span><br><span class="ma">間</span></span>
+        <svg class="circle-progress" viewBox="0 0 100 100">
+            <circle class="main-circle" cx="50" cy="50" r="45"/>
+            <path class="quarter-circle" d="M 95,50 A 45,45 0 0,1 50,95"/>
+        </svg>
+      </button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>

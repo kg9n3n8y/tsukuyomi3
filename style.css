@@ -1,0 +1,146 @@
+body {
+  background-color : #E1DAC3;
+  font-size        : 23px;
+  font-family      : "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+}
+h1 {
+  color            : #333333;
+  font-size        : 28px;
+  margin    : 0;
+}
+p{
+  margin           : 10px auto ;
+}
+table {
+  border           : none;
+  padding          : 0;
+  writing-mode     : vertical-rl;
+}
+td {
+  background-color : #FFFFFF;
+  border-color     : #336633;
+  border-width     : 0.3rem;
+  border-style     : solid;
+  border-radius    : 0.3rem;
+  height           : 400px;
+  width            : 135px;
+  padding          : 0;
+  line-height      : 3rem;
+  position         : relative;
+  font-family      : "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
+}
+input[type=button] {
+  color            : #FFFFFF;
+  background-color : #336633;
+  border           : none;
+  border-radius    : 0.3rem;
+  font-size        : medium;
+  width            : auto;
+  padding          : 0.5rem 1rem;
+  font-size        : 20px;
+}
+label {
+  display          : block;
+  padding          : 1rem 0.8rem 0.5rem 0.8rem;
+}
+iframe {
+  border           : 0;
+}
+.num{
+  font-size        : 1rem;
+  position         : absolute;
+  right            : 0.5rem;
+  bottom           : -0.3rem;
+  writing-mode     : horizontal-tb;
+}
+
+
+/* ここからタイマー用 */
+.float-buttons {
+  position         : absolute;
+  top              : 443px;
+  left             : 158px;
+  flex-direction   : column;
+  gap              : 10px;
+}
+
+.float-button {
+  width            : 90px;
+  height           : 90px;
+  border-radius    : 50%;
+  border           : none;
+  background-color : #ffffff;
+  color            : #000000;
+  font-size        : 20px;
+  cursor           : pointer;
+  position         : relative;
+  overflow         : hidden;
+  font-weight      : bold;
+  box-shadow       : 2px 2px 4px gray;
+  transition       : opacity 0.3s ease-out;
+}
+
+.float-button.hidden {
+  opacity: 0;
+  display: none;
+}
+
+.button-text {
+  position         : relative;
+  z-index          : 2;
+}
+
+.yoin {
+  color: #336633;
+}
+
+.ma {
+  color: #ff6600;
+}
+
+.circle-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-progress circle,
+.circle-progress .quarter-circle {
+  fill: none;
+  stroke: #336633;
+  stroke-width: 8;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+#middle-button .circle-progress .main-circle {
+  stroke: #336633;
+  stroke-dasharray: -212;
+}
+
+#middle-button .circle-progress .quarter-circle {
+  stroke: #ff6600;
+  stroke-dasharray: 71;
+}
+
+@keyframes disappear {
+  to {
+      stroke-dashoffset: 283;
+  }
+}
+
+@keyframes disappear-quarter {
+  to {
+      stroke-dashoffset: 71;
+  }
+}
+
+@keyframes disappear-main {
+  to {
+      stroke-dashoffset: 283;
+  }
+}
