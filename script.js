@@ -222,11 +222,7 @@ function initialize() {
   }
 
   updateDisplay();
-  if (currentIndex > 0) {
-    showMiddleButton();
-  } else {
-    hideMiddleButton();
-  }
+  showMiddleButton(); // 起動時に常にmiddle-buttonを表示
   updateCardListSelectionState(selectedCardNumbers, manualAdditionNumbers);
   updateProgressIndicator();
   updateSelectedCountIndicator(selectedCardNumbers);
