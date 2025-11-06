@@ -659,6 +659,9 @@ function handleApplySettings() {
     window.alert('少なくとも1枚以上の札を選択してください。');
     return;
   }
+  if (!confirmShuffle()) {
+    return;
+  }
 
   selectedCardNumbers = new Set(draftSelection);
   manualAdditionNumbers = new Set(
@@ -769,17 +772,21 @@ function updateSelectedCountIndicator(selectionSet) {
   selectedCountIndicator.textContent = `選択中: ${targetSet.size}枚`;
 }
 
+function confirmShuffle() {
+  return window.confirm('読み札をシャッフルしますが，いいですか？');
+}
+
 function handleShuffleClick() {
   if (selectedCardNumbers.size === 0) {
     window.alert('使う札が選択されていません。設定から札を選択してください。');
     return;
   }
-  const shouldShuffle = window.confirm('読み札をシャッフルしますが，いいですか？');
-  if (shouldShuffle) {
-    shuffleWithCurrentSelection();
-    updateProgressIndicator();
-    persistState();
+  if (!confirmShuffle()) {
+    return;
   }
+  shuffleWithCurrentSelection();
+  updateProgressIndicator();
+  persistState();
 }
 
 function showMiddleButton() {
