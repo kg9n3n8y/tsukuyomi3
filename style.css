@@ -455,6 +455,31 @@ iframe {
   flex-wrap        : wrap;
 }
 
+.empty-card-toggle-row {
+  display          : flex;
+  align-items      : center;
+}
+
+.empty-card-toggle {
+  display          : inline-flex;
+  align-items      : center;
+  gap              : 0.35rem;
+  padding          : 0;
+  font-size        : 18px;
+  background-color : transparent;
+  border           : none;
+  border-radius    : 0;
+  color            : #000000;
+  cursor           : pointer;
+  user-select      : none;
+}
+
+.empty-card-toggle input[type="checkbox"] {
+  width            : 20px;
+  height           : 20px;
+  accent-color     : #336633;
+}
+
 .selected-count-indicator {
   font-size        : 14px;
   color            : #333333;

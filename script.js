@@ -166,6 +166,7 @@ let lastPlayableIndex = 0;
 
 let draftSelection = null;
 let draftManualAdditions = null;
+let isEmptyCardModeEnabled = false;
 
 const shimonokuElement = document.getElementById('shimonoku');
 const kaminokuElement = document.getElementById('kaminoku');
@@ -184,6 +185,7 @@ const openDigitSelectorButton = document.getElementById('open-digit-selector-but
 const openInitialSelectorButton = document.getElementById('open-initial-selector-button');
 const cardListElement = document.getElementById('card-list');
 const selectedCountIndicator = document.getElementById('selected-count-indicator');
+const emptyCardModeCheckbox = document.getElementById('empty-card-mode-checkbox');
 
 const digitSelector = document.getElementById('digit-selector');
 const closeDigitSelectorButton = document.getElementById('close-digit-selector-button');
@@ -405,11 +407,19 @@ function attachModalEventListeners() {
   if (applyInitialSelectionButton) {
     applyInitialSelectionButton.addEventListener('click', handleApplyInitialSelection);
   }
+  if (emptyCardModeCheckbox) {
+    emptyCardModeCheckbox.addEventListener('change', () => {
+      isEmptyCardModeEnabled = emptyCardModeCheckbox.checked;
+    });
+  }
 }
 
 function openSelectionModal() {
   draftSelection = new Set(selectedCardNumbers);
   draftManualAdditions = new Set(manualAdditionNumbers);
+  if (emptyCardModeCheckbox) {
+    emptyCardModeCheckbox.checked = isEmptyCardModeEnabled;
+  }
   updateCardListSelectionState(draftSelection, draftManualAdditions);
   showModal(selectionModal);
 }
@@ -493,8 +503,20 @@ function toggleCardSelection(cardNo) {
     draftManualAdditions.delete(cardNo);
   } else {
     draftSelection.add(cardNo);
+    if (isEmptyCardModeEnabled) {
+      draftManualAdditions.add(cardNo);
+    }
   }
   updateCardListSelectionState(draftSelection, draftManualAdditions);
+}
+
+function markCardsAsManualAdditions(cardNumbers) {
+  if (!draftManualAdditions || !isEmptyCardModeEnabled) {
+    return;
+  }
+  cardNumbers.forEach(no => {
+    draftManualAdditions.add(no);
+  });
 }
 
 function updateCardListSelectionState(selectionSet, manualSet) {
@@ -607,10 +629,12 @@ function handleApplyDigitSelection() {
     return;
   }
 
-  draftSelection = new Set(matches.map(card => card.no));
+  const matchNumbers = matches.map(card => card.no);
+  draftSelection = new Set(matchNumbers);
   draftManualAdditions = new Set();
   const randomCount = Number(digitRandomAddCountInput?.value ?? 0);
   applyRandomAddition(randomCount);
+  markCardsAsManualAdditions(matchNumbers);
   updateCardListSelectionState(draftSelection, draftManualAdditions);
   closeSubModal(digitSelector, true);
 }
@@ -642,10 +666,12 @@ function handleApplyInitialSelection() {
     window.alert('条件に合致する札がありませんでした。');
     return;
   }
-  draftSelection = new Set(matches.map(card => card.no));
+  const matchNumbers = matches.map(card => card.no);
+  draftSelection = new Set(matchNumbers);
   draftManualAdditions = new Set();
   const randomCount = Number(initialRandomAddCountInput?.value ?? 0);
   applyRandomAddition(randomCount);
+  markCardsAsManualAdditions(matchNumbers);
   updateCardListSelectionState(draftSelection, draftManualAdditions);
   closeSubModal(initialSelector, true);
 }
