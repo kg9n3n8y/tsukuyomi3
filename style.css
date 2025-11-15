@@ -114,6 +114,24 @@ iframe {
   border-color     : #3aa6d0;
 }
 
+.card-indicator {
+  position         : absolute;
+  left             : 0.5rem;
+  bottom           : 0.5rem;
+  padding          : 0.05rem 0.25rem;
+  border           : 1px solid #c62828;
+  color            : #c62828;
+  background-color : rgba(255, 255, 255, 0.9);
+  writing-mode     : horizontal-tb;
+  font-size        : 0.8rem;
+  font-weight      : bold;
+  border-radius    : 0;
+  pointer-events   : none;
+  line-height      : 1.8;
+  display          : inline-flex;
+  align-items      : center;
+}
+
 
 /* ここからタイマー用 */
 .float-buttons {

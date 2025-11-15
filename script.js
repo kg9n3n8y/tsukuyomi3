@@ -737,7 +737,38 @@ function rebuildYomifudalistFromOrder(order) {
     .filter(Boolean);
 
   yomifudalist = addNumberTags([...prefix, ...cards, ...suffix]);
+  applyCardIndicators(yomifudalist);
   lastPlayableIndex = Math.max(0, yomifudalist.length - 2);
+}
+
+function applyCardIndicators(cards) {
+  if (!Array.isArray(cards)) {
+    return;
+  }
+  const seenNonEmptyInitials = new Set();
+
+  for (let index = cards.length - 1; index >= 0; index -= 1) {
+    const card = cards[index];
+    if (!card || typeof card.no !== 'number' || card.no <= 0 || card.no >= 101) {
+      if (card) {
+        card.indicatorType = null;
+      }
+      continue;
+    }
+
+    const initial = typeof card.initial === 'string' ? card.initial : '';
+    const hasLaterNonEmpty = initial ? seenNonEmptyInitials.has(initial) : false;
+
+    if (card.isManualAddition) {
+      card.indicatorType = hasLaterNonEmpty ? null : 'noSameSound';
+      continue;
+    }
+
+    card.indicatorType = hasLaterNonEmpty ? null : 'single';
+    if (initial) {
+      seenNonEmptyInitials.add(initial);
+    }
+  }
 }
 
 function updateDisplay() {
@@ -769,6 +800,7 @@ function renderCard(element, card, type) {
     element.innerHTML = card.shimonoku || '';
   } else {
     element.innerHTML = card.kaminoku || '';
+    appendCardIndicator(element, card);
   }
 
   if (card.isManualAddition) {
@@ -776,6 +808,30 @@ function renderCard(element, card, type) {
   } else {
     element.classList.remove('manual-addition');
   }
+}
+
+function appendCardIndicator(element, card) {
+  const text = getIndicatorText(card);
+  if (!text) {
+    return;
+  }
+  const indicator = document.createElement('div');
+  indicator.className = 'card-indicator';
+  indicator.textContent = text;
+  element.appendChild(indicator);
+}
+
+function getIndicatorText(card) {
+  if (!card || !card.indicatorType) {
+    return null;
+  }
+  if (card.indicatorType === 'single') {
+    return '単独';
+  }
+  if (card.indicatorType === 'noSameSound') {
+    return '同音なし';
+  }
+  return null;
 }
 
 function getPlayableCardCount() {
